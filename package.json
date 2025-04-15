@@ -9,8 +9,16 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@types/axios": "^0.9.36",
+    "@types/express": "^5.0.1",
+    "@types/mongoose": "^5.11.96",
     "@types/node": "^22.14.1",
+    "@types/uuid": "^10.0.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "kafkajs": "^2.2.4",
+    "mongoose": "^8.13.2"
   }
 }
