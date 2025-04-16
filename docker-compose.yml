@@ -23,6 +23,7 @@ services:
       KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:29092,EXTERNAL://localhost:9092
       KAFKA_LISTENERS: INTERNAL://0.0.0.0:29092,EXTERNAL://0.0.0.0:9092
       KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     depends_on:
       - zookeeper
     networks:
@@ -45,6 +46,20 @@ services:
     container_name: mongodb
     ports:
       - "27017:27017"
+    networks:
+      - kafka-net
+
+  notification-service:
+    build:
+      context: ./src
+      dockerfile: services/notification-service/Dockerfile
+    container_name: notification-service
+    depends_on:
+      - kafka
+    environment:
+    - KAFKA_BROKER=kafka:29092
+    - EMAIL_USER=${EMAIL_USER}
+    - EMAIL_PASS=${EMAIL_PASS}
     networks:
       - kafka-net
 
