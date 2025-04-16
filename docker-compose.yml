@@ -39,7 +39,7 @@ services:
       - kafka
     networks:
       - kafka-net
-  
+
   mongodb:
     image: mongo:latest
     container_name: mongodb
