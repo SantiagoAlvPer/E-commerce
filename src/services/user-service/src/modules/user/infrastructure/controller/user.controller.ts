@@ -16,7 +16,7 @@ import { HTTP_RESPONSE_MESSAGE } from "../../../../../common/constants/http-mess
 import { JwtAuthGuard } from "../../../auth/infrastructure/guard/jwt/jwt-auth.guard";
 import { ITokenPayload } from "../../../auth/infrastructure/interfaces/IToken";
 import { KEYS } from "../../../../../common/constants/keys";
-import { KafkaProducerService } from "../../../../../shared/kafka/service/kafka.service";
+import { KafkaProducerService } from "../../../../../../../shared/kafka/service/kafka.service";
 
 @Controller("user")
 export class UserController {

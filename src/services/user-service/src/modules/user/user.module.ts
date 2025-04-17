@@ -8,8 +8,8 @@ import { CreateUserUseCase } from "./application/createUser/CreateUser.useCase";
 import { IUserService } from "./domain/service/IUser.service";
 import { AuthModule } from "../auth/auth.module";
 import { JwtAuthGuard } from "../auth/infrastructure/guard/jwt/jwt-auth.guard";
-import { JwtProvider } from "../../../shared/providers/jwt.provider/jwt.provider";
-import { KafkaModule } from "../../../shared/kafka/kafka.module";
+import { JwtProvider } from "../../../../../shared/providers/jwt.provider/jwt.provider";
+import { KafkaModule } from "../../../../../shared/kafka/kafka.module";
 
 @Module({
   controllers: [UserController],

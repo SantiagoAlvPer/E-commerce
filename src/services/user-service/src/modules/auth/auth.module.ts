@@ -8,7 +8,7 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
 import { Auth } from "./infrastructure/entity/auth.entity";
 import { AuthController } from "./infrastructure/controller/auth.controller";
 import { AuthService } from "./infrastructure/service/auth.service";
-import { JwtProvider } from "../../../shared/providers/jwt.provider/jwt.provider";
+import { JwtProvider } from "../../../../../shared/providers/jwt.provider/jwt.provider";
 
 @Module({
   controllers: [AuthController],
