@@ -1,5 +1,5 @@
-import nodemailer from 'nodemailer';
 import { EventModel } from '../../../../shared/events/event.model';
+import { EmailService } from './Email.Service';
 
 interface SendNotificationParams {
   to: string;
@@ -14,20 +14,8 @@ export class NotificationService {
   static async sendEmail(params: SendNotificationParams) {
     const { to, subject, content, topic, source, payload } = params;
 
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
-
-    await transporter.sendMail({
-      from: `"Notification Service" <${process.env.EMAIL_USER}>`,
-      to,
-      subject,
-      text: content,
-    });
+    // Enviar email usando el nuevo servicio
+    await EmailService.sendMail(to, subject, content);
 
     // Guardar evento en MongoDB
     await EventModel.create({

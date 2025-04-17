@@ -1,27 +1,13 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.NotificationService = void 0;
-const nodemailer_1 = __importDefault(require("nodemailer"));
 const event_model_1 = require("../../../../shared/events/event.model");
+const Email_Service_1 = require("./Email.Service");
 class NotificationService {
     static async sendEmail(params) {
         const { to, subject, content, topic, source, payload } = params;
-        const transporter = nodemailer_1.default.createTransport({
-            service: 'gmail',
-            auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS,
-            },
-        });
-        await transporter.sendMail({
-            from: `"Notification Service" <${process.env.EMAIL_USER}>`,
-            to,
-            subject,
-            text: content,
-        });
+        // Enviar email usando el nuevo servicio
+        await Email_Service_1.EmailService.sendMail(to, subject, content);
         // Guardar evento en MongoDB
         await event_model_1.EventModel.create({
             eventId: `notif-${Date.now()}`,

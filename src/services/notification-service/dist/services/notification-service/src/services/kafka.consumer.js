@@ -8,8 +8,8 @@ async function startKafkaConsumer() {
         console.log('📡 Connecting to Kafka...');
         await kafka_config_1.kafkaConsumer.connect();
         console.log('✅ Kafka consumer connected');
-        await kafka_config_1.kafkaConsumer.subscribe({ topic: 'notifications', fromBeginning: false });
-        console.log('📨 Subscribed to topic: notifications');
+        await kafka_config_1.kafkaConsumer.subscribe({ topic: 'email-service', fromBeginning: false });
+        console.log('📨 Subscribed to topic: email-service');
         await kafka_config_1.kafkaConsumer.run({
             eachMessage: async ({ topic, partition, message }) => {
                 console.log(`📥 Received message from topic "${topic}"`);

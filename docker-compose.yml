@@ -49,20 +49,6 @@ services:
     networks:
       - kafka-net
 
-  notification-service:
-    build:
-      context: ./src
-      dockerfile: services/notification-service/Dockerfile
-    container_name: notification-service
-    depends_on:
-      - kafka
-    environment:
-    - KAFKA_BROKER=kafka:29092
-    - EMAIL_USER=${EMAIL_USER}
-    - EMAIL_PASS=${EMAIL_PASS}
-    networks:
-      - kafka-net
-
 networks:
   kafka-net:
     driver: bridge
