@@ -1,6 +1,9 @@
 import { Kafka } from "kafkajs";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export const kafka = new Kafka({
-    clientId: 'cart-service',
-    brokers: [process.env.KAFKA_BROKER || 'localhost:9092']
+    clientId: 'CartService',
+    brokers: [process.env.KAFKA_BROKER || 'localhost:9092'],
   });
