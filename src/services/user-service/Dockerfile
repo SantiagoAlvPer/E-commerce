@@ -5,7 +5,7 @@ FROM node:20
 WORKDIR /usr/src/app
 
 # Copia solo los archivos necesarios para instalar dependencias
-COPY package*.json ./
+COPY package*.json ../../../../E-commerce
 
 # Instala las dependencias
 RUN npm install --production
