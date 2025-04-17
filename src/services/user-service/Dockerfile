@@ -1,23 +1,21 @@
-# Usa una imagen base oficial de Node.js
 FROM node:20
 
-# Establece el directorio de trabajo dentro del contenedor
 WORKDIR /usr/src/app
 
-# Copia solo los archivos necesarios para instalar dependencias
-COPY package*.json ../../../../E-commerce
+# Copia solo lo necesario desde la raíz
+COPY package*.json ./
+COPY tsconfig*.json ./
 
-# Instala las dependencias
-RUN npm install --production
+# Instala dependencias del proyecto principal
+RUN npm install --omit=dev
 
-# Copia el resto de los archivos del proyecto
+# Copia TODO el proyecto (ajustado según lo que necesitas)
 COPY . .
 
-# Construye la aplicación (asumiendo que usas TypeScript)
+# Compila
 RUN npm run build
 
-# Expone el puerto (ajústalo si es diferente)
 EXPOSE 3000
 
-# Comando para correr la app en producción
-CMD ["node", "dist/src/main.js"]
+# Ejecuta el main del microservicio de usuarios
+CMD ["node", "dist/main.js"]

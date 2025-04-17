@@ -80,8 +80,8 @@ services:
 
   user-service:
     build:
-      context: ./src/services/user-service
-      dockerfile: Dockerfile
+      context: . 
+      dockerfile: ./src/services/user-service/Dockerfile
     container_name: user-service
     ports:
       - "3000:3000"
