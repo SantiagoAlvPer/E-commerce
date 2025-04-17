@@ -1,4 +1,4 @@
-import { IAuth, IAuthCreate } from "src/modules/auth/domain/interfaces/IAuth";
+import { IAuth, IAuthCreate } from "../../../auth/domain/interfaces/IAuth";
 
 export interface IUser {
   id: number;

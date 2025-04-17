@@ -1,5 +1,4 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
-import * as bcrypt from "bcrypt";
 import { IAuthService } from "../../domain/service/IAuth.service";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Auth } from "../entity/auth.entity";
@@ -29,11 +28,4 @@ export class AuthService implements IAuthService {
 
     return auth;
   }
-}
-
-export async function hashPassword(
-  password: string,
-  saltRounds = 10
-): Promise<string> {
-  return await bcrypt.hash(password, saltRounds);
 }

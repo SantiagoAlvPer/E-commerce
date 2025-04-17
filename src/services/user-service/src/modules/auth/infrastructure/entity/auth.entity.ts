@@ -1,7 +1,7 @@
 import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { IAuth } from "../../domain/interfaces/IAuth";
-import { User } from "src/modules/user/infrastructure/entity/user.entity";
-import { IUser } from "src/modules/user/domain/interfaces/IUser";
+import { User } from "../../../user/infrastructure/entity/user.entity";
+import { IUser } from "../../../user/domain/interfaces/IUser";
 
 @Entity("auth")
 export class Auth implements IAuth {

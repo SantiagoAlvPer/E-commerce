@@ -8,15 +8,15 @@ import { CreateUserUseCase } from "./application/createUser/CreateUser.useCase";
 import { IUserService } from "./domain/service/IUser.service";
 import { AuthModule } from "../auth/auth.module";
 import { JwtAuthGuard } from "../auth/infrastructure/guard/jwt/jwt-auth.guard";
-import { HashProvider } from "../../../../../shared/providers/hash.provider/hash.provider";
-import { JwtProvider } from "../../../../../shared/providers/jwt.provider/jwt.provider";
-import { IHashProvider } from "src/common/domain/services/IHash.service";
+import { JwtProvider } from "../../../shared/providers/jwt.provider/jwt.provider";
+import { KafkaModule } from "../../../shared/kafka/kafka.module";
 
 @Module({
   controllers: [UserController],
   imports: [
     TypeOrmModule.forFeature([User]),
-    forwardRef(() => AuthModule), // 🔹 Usa forwardRef aquí también
+    forwardRef(() => AuthModule),
+    KafkaModule
   ],
   providers: [
     {
@@ -24,14 +24,10 @@ import { IHashProvider } from "src/common/domain/services/IHash.service";
       useClass: UserService,
     },
     {
-      provide: "HashProvider",
-      useClass: HashProvider,
-    },
-    {
       provide: "CreateUserUseCase",
-      useFactory: (userService: IUserService, hashProvider: IHashProvider) =>
-        new CreateUserUseCase(userService, hashProvider),
-      inject: ["UserService", "HashProvider"],
+      useFactory: (userService: IUserService) =>
+        new CreateUserUseCase(userService),
+      inject: ["UserService"],
     },
     {
       provide: "GetUserUseCase",

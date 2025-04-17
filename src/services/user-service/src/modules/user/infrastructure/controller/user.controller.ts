@@ -4,7 +4,6 @@ import {
   Get,
   HttpStatus,
   Inject,
-  Patch,
   Post,
   Req,
   UseGuards,
@@ -13,10 +12,11 @@ import { GetUserUseCase } from "../../application/getUser/GetUser.useCase";
 import { ResponseAdapter } from "./../../../../../common/response-adapter/response.adapter";
 import { CreateUserUseCase } from "../../application/createUser/CreateUser.useCase";
 import { UserDto } from "../dtos/user.dto";
-import { KEYS } from "common/constants/keys";
-import { HTTP_RESPONSE_MESSAGE } from "common/constants/http-message";
-import { JwtAuthGuard } from "src/modules/auth/infrastructure/guard/jwt/jwt-auth.guard";
-import { ITokenPayload } from "src/modules/auth/infrastructure/interfaces/IToken";
+import { HTTP_RESPONSE_MESSAGE } from "../../../../../common/constants/http-message";
+import { JwtAuthGuard } from "../../../auth/infrastructure/guard/jwt/jwt-auth.guard";
+import { ITokenPayload } from "../../../auth/infrastructure/interfaces/IToken";
+import { KEYS } from "../../../../../common/constants/keys";
+import { KafkaProducerService } from "../../../../../shared/kafka/service/kafka.service";
 
 @Controller("user")
 export class UserController {
@@ -24,7 +24,8 @@ export class UserController {
     @Inject("GetUserUseCase")
     private readonly getuserUseCase: GetUserUseCase,
     @Inject("CreateUserUseCase")
-    private readonly createUserUseCase: CreateUserUseCase
+    private readonly createUserUseCase: CreateUserUseCase,
+    private readonly kafkaProducer: KafkaProducerService
   ) {}
 
   @UseGuards(JwtAuthGuard)
@@ -43,6 +44,9 @@ export class UserController {
   @Post()
   public async createUser(@Body() UserDto: UserDto) {
     const newUser = await this.createUserUseCase.run(UserDto);
+
+    await this.kafkaProducer.emit("user.created", newUser);
+
     return ResponseAdapter.set(
       HttpStatus.CREATED,
       newUser,

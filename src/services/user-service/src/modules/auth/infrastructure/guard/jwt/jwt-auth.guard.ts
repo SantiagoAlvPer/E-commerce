@@ -2,7 +2,7 @@ import { Request } from "express";
 import { KEYS } from "../../../../../../common/constants/keys";
 import { ForbiddenError } from "../../../../../common/domain/errors/ForbiddenError";
 import { ExecutionContext, Injectable, SetMetadata } from "@nestjs/common";
-import { JwtProvider } from "../../../../../../../../shared/providers/jwt.provider/jwt.provider";
+import { JwtProvider } from "../../../../../../shared/providers/jwt.provider/jwt.provider";
 
 export const IS_PUBLIC_KEY = "isPublic";
 export const Public = () => SetMetadata(IS_PUBLIC_KEY, true);

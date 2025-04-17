@@ -8,10 +8,7 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
 import { Auth } from "./infrastructure/entity/auth.entity";
 import { AuthController } from "./infrastructure/controller/auth.controller";
 import { AuthService } from "./infrastructure/service/auth.service";
-
-import { IHashProvider } from "../../common/domain/services/IHash.service";
-import { HashProvider } from "../../../../../shared/providers/hash.provider/hash.provider";
-import { JwtProvider } from "../../../../../shared/providers/jwt.provider/jwt.provider";
+import { JwtProvider } from "../../../shared/providers/jwt.provider/jwt.provider";
 
 @Module({
   controllers: [AuthController],
@@ -29,10 +26,6 @@ import { JwtProvider } from "../../../../../shared/providers/jwt.provider/jwt.pr
   ],
   providers: [
     {
-      provide: "IHashProvider",
-      useClass: HashProvider,
-    },
-    {
       provide: "IAuthService",
       useClass: AuthService,
     },
@@ -43,11 +36,10 @@ import { JwtProvider } from "../../../../../shared/providers/jwt.provider/jwt.pr
     {
       provide: "AuthUserUseCase",
       useFactory: (
-        hashProvider: IHashProvider,
         authService: IAuthService,
         jwtProvider: IJwtService
-      ) => new AuthUserUseCase(hashProvider, authService, jwtProvider),
-      inject: ["IHashProvider", "IAuthService", "IJwtService"],
+      ) => new AuthUserUseCase(authService, jwtProvider),
+      inject: ["IAuthService", "IJwtService"],
     },
     JwtProvider,
   ],

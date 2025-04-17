@@ -10,8 +10,9 @@ exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const config_1 = require("@nestjs/config");
-const user_module_1 = require("./services/user-service/user.module");
-const auth_module_1 = require("./services/auth/auth.module");
+const user_module_1 = require("./modules/user/user.module");
+const auth_module_1 = require("./modules/auth/auth.module");
+const shared_module_1 = require("../shared/shared.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -20,6 +21,7 @@ exports.AppModule = AppModule = __decorate([
         imports: [
             user_module_1.UserModule,
             auth_module_1.AuthModule,
+            shared_module_1.SharedModule,
             config_1.ConfigModule.forRoot({
                 isGlobal: true,
                 envFilePath: ".env",
