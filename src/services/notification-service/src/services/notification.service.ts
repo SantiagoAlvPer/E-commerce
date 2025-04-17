@@ -18,7 +18,7 @@ export class NotificationService {
     await EmailService.sendMail(to, subject, content);
 
     // Guardar evento en MongoDB
-    await EventModel.create({
+    const savedEvent = await EventModel.create({
       eventId: `notif-${Date.now()}`,
       timestamp: new Date(),
       source,
@@ -30,5 +30,6 @@ export class NotificationService {
         content,
       },
     });
+    console.log('📦 Evento guardado en MongoDB:', savedEvent);    
   }
 }

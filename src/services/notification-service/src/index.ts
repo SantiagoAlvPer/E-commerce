@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import router from './controllers/notification.controller';
 import { startKafkaConsumer } from './services/kafka.consumer';
+import { connectToMongoDB } from './config/mongodb.config';
 
 dotenv.config();
 
@@ -18,3 +19,4 @@ app.listen(PORT, () => {
 });
 
 startKafkaConsumer().catch(console.error);
+connectToMongoDB();
