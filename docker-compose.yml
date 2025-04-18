@@ -1,4 +1,18 @@
 services:
+  product-service:
+    build: ./src/services/product-service # Ruta al Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - MONGODB_URI=mongodb://mongodb:27017/product-service
+      - KAFKA_BROKER=kafka:9092
+    depends_on:
+      - mongodb
+      - kafka
+    networks:
+      - kafka-net
+
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
     container_name: zookeeper
@@ -41,7 +55,7 @@ services:
       - kafka
     networks:
       - kafka-net
-  
+
   mongodb:
     image: mongo:latest
     container_name: mongodb
@@ -53,4 +67,5 @@ services:
 
 networks:
   kafka-net:
+    name: e-commerce_kafka-net
     driver: bridge
