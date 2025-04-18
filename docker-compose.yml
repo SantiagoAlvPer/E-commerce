@@ -1,4 +1,16 @@
 services:
+
+
+  notification-service:
+    build:
+      context: .
+      dockerfile: services/notification-service/Dockerfile
+    ports:
+      - "3000:3000"
+    working_dir: /app/services/notification-service
+    environment:
+      - NODE_ENV=production
+
   product-service:
     build: ./src/services/product-service # Ruta al Dockerfile
     ports:
@@ -63,7 +75,6 @@ services:
       - "27017:27017"
     networks:
       - kafka-net
-
 
 networks:
   kafka-net:

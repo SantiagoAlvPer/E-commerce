@@ -1,4 +1,4 @@
-FROM node:18-slim
+FROM node:18-slim as builder
 
 WORKDIR /app
 
@@ -24,4 +24,4 @@ WORKDIR /app/services/notification-service
 RUN npm run build
 
 # Iniciar el servicio
-CMD ["node", "dist/index.js"]
+CMD ["npm", "start"]
