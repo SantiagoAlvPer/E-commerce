@@ -1,0 +1,27 @@
+FROM node:18-slim
+
+WORKDIR /app
+
+# Copiar package.json y lock del servicio (asegúrate de usar el contexto ./src)
+COPY services/notification-service/package*.json ./services/notification-service/
+
+# Ir a la carpeta del servicio
+WORKDIR /app/services/notification-service
+
+# Instalar dependencias del servicio
+RUN npm install
+
+# Volver a raíz del contexto para copiar shared y otros archivos
+WORKDIR /app
+
+# Copiar todo el código fuente, incluyendo 'shared'
+COPY . .
+
+# Regresar a la carpeta del servicio
+WORKDIR /app/services/notification-service
+
+# Compilar TypeScript
+RUN npm run build
+
+# Iniciar el servicio
+CMD ["node", "dist/index.js"]
