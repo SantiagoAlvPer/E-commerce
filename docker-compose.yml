@@ -2,9 +2,7 @@ services:
 
 
   notification-service:
-    build:
-      context: .
-      dockerfile: services/notification-service/Dockerfile
+    build: ./src/services/product-service # Ruta al Dockerfile
     ports:
       - "3000:3000"
     working_dir: /app/services/notification-service
@@ -13,6 +11,20 @@ services:
 
   product-service:
     build: ./src/services/product-service # Ruta al Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - MONGODB_URI=mongodb://mongodb:27017/product-service
+      - KAFKA_BROKER=kafka:9092
+    depends_on:
+      - mongodb
+      - kafka
+    networks:
+      - kafka-net
+
+  user-service:
+    build: ./src/services/user-service # Ruta al Dockerfile
     ports:
       - "3000:3000"
     environment:

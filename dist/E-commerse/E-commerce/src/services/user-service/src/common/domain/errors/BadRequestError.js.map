@@ -1,0 +1,1 @@
+{"version":3,"file":"BadRequestError.js","sourceRoot":"","sources":["../../../../../../../../../../src/services/user-service/src/common/domain/errors/BadRequestError.ts"],"names":[],"mappings":";;;AAAA,+CAA4C;AAE5C,MAAa,eAAgB,SAAQ,yBAAW;IAC9C,YAAY,OAAgB;QAC1B,KAAK,CAAC,GAAG,EAAE,OAAO,IAAI,kBAAkB,CAAC,CAAC;IAC5C,CAAC;CACF;AAJD,0CAIC"}
