@@ -1,21 +1,16 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { ConfigModule, ConfigService } from "@nestjs/config";
-import { UserModule } from "./services/user-service/src/modules/user/user.module";
-import { AuthModule } from "./services/user-service/src/modules/auth/auth.module";
-import { SharedModule } from "./shared/shared.module";
+import { UserModule } from "./user-service/src/modules/user/user.module";
+import { AuthModule } from "./user-service/src/modules/auth/auth.module";
+import { SharedModule } from "../shared/shared.module";
 
 @Module({
   imports: [
     UserModule,
     AuthModule,
     SharedModule,
-
-    ConfigModule.forRoot({
-      isGlobal: true,
-      envFilePath: ".env",
-    }),
-
+    
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: ".env",

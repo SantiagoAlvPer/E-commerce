@@ -1,6 +1,6 @@
 import { NestFactory } from "@nestjs/core";
 import { ValidationPipe } from "@nestjs/common";
-import { AppModule } from "./app.module";
+import { AppModule } from "./services/app.module";
 import { connectToMongoDB } from "./config/mongodb.config";
 
 async function bootstrap() {
